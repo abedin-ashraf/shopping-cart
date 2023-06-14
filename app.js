@@ -1,29 +1,61 @@
 function updateItemNumber(id1, id2, isIncreasing) {
-    const caseInput = document.getElementById(id1);
-    var caseNumber = caseInput.value;
+    const itemInput = document.getElementById(id1);
+    var itemNumber = itemInput.value;
 
     if (isIncreasing == true) {
-        caseNumber = parseInt(caseNumber) + 1;
+        itemNumber = parseInt(itemNumber) + 1;
     }
     else {
-        if (parseInt(caseNumber) > 0) {
-            caseNumber = parseInt(caseNumber) - 1;
+        if (parseInt(itemNumber) > 0) {
+            itemNumber = parseInt(itemNumber) - 1;
         }
     }
 
-    caseInput.value = caseNumber;
+    itemInput.value = itemNumber;
 
     //Update totatl
-    const caseTotal = document.getElementById(id2);
-    var casePrice;
+    const itemTotal = document.getElementById(id2);
+    var itemPrice;
     if (id2 == 'phone-total') {
-        casePrice = 1219;
+        itemPrice = 1219;
     }
     else {
-        casePrice = 59;
+        itemPrice = 59;
     }
-    caseTotal.innerText = parseInt(caseNumber) * casePrice;
+    itemTotal.innerText = parseInt(itemNumber) * itemPrice;
+    calculateTotal()
+
 }
+function getInputValue(id) {
+    const itemInput = document.getElementById(id);
+    const itemNumber = parseInt(itemInput.value);
+    return itemNumber;
+}
+
+function calculateTotal() {
+
+    const phoneTotal = getInputValue('phone-number') * 1219;
+
+    const caseTotal = getInputValue('case-number') * 59;
+
+    const subtotalValue = phoneTotal + caseTotal;
+
+    const subtotal = document.getElementById('subtotal');
+    const tax = document.getElementById('tax');
+    const total = document.getElementById('total');
+
+    const taxTotalValue = (subtotalValue * .1);
+    const totalValue = subtotalValue + parseFloat(taxTotalValue);
+
+    //Update on HTML
+    subtotal.innerText = subtotalValue;
+    tax.innerText = (taxTotalValue).toFixed(2);
+    total.innerText = (totalValue).toFixed(2);
+
+
+
+}
+
 //Phone Case Event
 document.getElementById('phone-minus').addEventListener('click', function () {
     updateItemNumber('phone-number', 'phone-total', false);
@@ -37,10 +69,12 @@ document.getElementById('phone-plus').addEventListener('click', function () {
 //Handle Case Event
 document.getElementById('case-plus').addEventListener('click', function () {
     updateItemNumber('case-number', 'case-total', true);
+
 })
 
 document.getElementById('case-minus').addEventListener('click', function () {
     updateItemNumber('case-number', 'case-total', false)
+
 
 
 })
