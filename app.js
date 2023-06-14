@@ -51,9 +51,6 @@ function calculateTotal() {
     subtotal.innerText = subtotalValue;
     tax.innerText = (taxTotalValue).toFixed(2);
     total.innerText = (totalValue).toFixed(2);
-
-
-
 }
 
 //Phone Case Event
